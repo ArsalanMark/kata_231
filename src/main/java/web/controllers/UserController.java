@@ -37,10 +37,14 @@ public class UserController {
     }
     @PostMapping("/edit")
     public String editUser(@RequestParam("id") int id, Model model) {
-        System.out.println("edit user");
         User user = userService.getUser(id);
-        System.out.println(user);
         model.addAttribute("user", user);
         return "add-user";
+    }
+    @PostMapping("/delete")
+    public String editUser(@RequestParam("id") int id) {
+        System.out.println("delete user");
+        userService.delete(id);
+        return "redirect:/users";
     }
 }
