@@ -5,7 +5,7 @@
     <title>Add User</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/save}" th:object="${user}">
+<form th:method="POST" th:action="@{/users}" th:object="${user}">
     <input type="hidden" th:field="*{id}">
     <label for="name">Name:</label>
     <br>
@@ -19,7 +19,7 @@
     <br>
     <input type="text" th:field="*{email}" id="email"/>
     <br><br>
-    <input type="submit" value="Save"/>
+    <input type="submit" value="SAVE"/>
 </form>
 </body>
 </html>

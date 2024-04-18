@@ -1,15 +1,9 @@
 package web.dao;
 
-import org.hibernate.Session;
 import web.model.User;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
@@ -20,12 +14,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void add(User user) {
-        System.out.println("UserDao" + user);
-        if (user.getId() == 0) {
-        entityManager.persist(user);
-        } else {
-            entityManager.merge(user);
-        }
+        entityManager.merge(user);
     }
 
     @Override
@@ -44,7 +33,6 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> userList() {
-        List<User> users = entityManager.createQuery("select u from User u", User.class).getResultList();
-        return users;
+        return entityManager.createQuery("from User", User.class).getResultList();
     }
 }
