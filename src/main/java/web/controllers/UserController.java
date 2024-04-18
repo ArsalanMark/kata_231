@@ -1,22 +1,24 @@
 package web.controllers;
 
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import web.model.User;
 import web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("/users")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping
+    @GetMapping(value="/users")
     public String mainPage(Model model) {
         List<User> users = userService.userList();
         model.addAttribute("users", users);
@@ -24,21 +26,21 @@ public class UserController {
     }
     @GetMapping(value="/addUser")
     public String addUser(@ModelAttribute("user") User user) {
-        return "save-user";
+        System.out.println("addUser");
+        return "add-user";
     }
-    @PostMapping
+    @PostMapping("/save")
     public String create(@ModelAttribute("user") User user) {
+        System.out.println("Post controller" + user);
         userService.add(user);
         return "redirect:/users";
     }
-    @PostMapping("/save")
+    @PostMapping("/edit")
     public String editUser(@RequestParam("id") int id, Model model) {
-        model.addAttribute("user", userService.getUser(id));
-        return "save-user";
-    }
-    @PostMapping("/delete")
-    public String editUser(@RequestParam("id") int id) {
-        userService.delete(id);
-        return "redirect:/users";
+        System.out.println("edit user");
+        User user = userService.getUser(id);
+        System.out.println(user);
+        model.addAttribute("user", user);
+        return "add-user";
     }
 }

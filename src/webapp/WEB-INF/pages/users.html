@@ -20,18 +20,18 @@
         <td th:text="${user.getSurname()}"></td>
         <td th:text="${user.getEmail()}"></td>
         <td>
-            <form th:method="POST" th:action="@{'/users/save' + '?id=' + ${user.getId()}}" th:object="${user}">
-                <input type="submit" value="EDIT">
+            <form th:method="POST" th:action="@{'/edit' + '?id=' + ${user.getId()}}" th:object="${user}">
+                <input type="submit" value="Edit User">
             </form>
         </td>
         <td>
-            <form th:method="POST" th:action="@{'/users/delete' + '?id=' + ${user.getId()}}" th:object="${user}">
-                <input type="submit" value="DELETE"/>
+            <form th:method="GET" th:action="@{${user.getId}}" th:object="${user}">
+                <input type="submit" value="Delete User"/>
             </form>
         </td>
     </tr>
 </table>
 <br>
-<input type="button" value="Add User" onclick="window.location.href='users/addUser'"/>
+<input type="button" value="Add User" onclick="window.location.href='addUser'"/>
 </body>
 </html>
